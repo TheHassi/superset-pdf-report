@@ -30,7 +30,7 @@ Insert in superset_config.py
 
 Celeryconfig
 ```bash
-CELERY_IMPORTS = supersetpdfreport.task
+CELERY_IMPORTS = 'supersetpdfreport.task'
 ```
 
 Add task in CELERYBEAT_SCHEDULE
