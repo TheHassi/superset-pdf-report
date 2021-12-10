@@ -15,6 +15,7 @@
     ],    
     "generate_pdf": false,
     "filename": "<your_texfile>.tex",
+    "use_nextcloud":false,
     "E-Mail": false,
     "mail_recipient": [
         "andreas.hasselberg@example.org"
