@@ -1,3 +1,4 @@
+from supersetpdfreport.nextcloud import transfer_file_to_nextcloud
 from .config import PATH
 from .chart import get_chart_screenshots
 from .send_mail import send_mail
@@ -56,7 +57,9 @@ def process_job(access_token, job_detail):
         except OSError as e:
             logger.error(e)
         logger.info("pdf created")
-
+    
+    if job_detail["use_nextcloud"] == True:
+        transfer_file_to_nextcloud(job_detail)
 
     if job_detail["E-Mail"] == True:
         # Sending E-Mail
