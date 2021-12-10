@@ -1,0 +1,66 @@
+from .config import PATH
+from .chart import get_chart_screenshots
+from .send_mail import send_mail
+from .logging import logger
+import asyncio
+import os
+import requests
+
+
+def process_job(access_token, job_detail):
+
+    # compute, cache, download a chart screenshot with IDs
+    logger.info("start to compute, cache, download the charts")
+    array_chart_id = job_detail["array_chart_id"]
+    asyncio.run(get_chart_screenshots(access_token, job_detail["type"], array_chart_id))
+    logger.info("finished compute, cache, download of charts")
+
+    #download images via url
+    if job_detail["download_images"] == True:
+        logger.info("start download of images")
+        for image in job_detail["download_images_url"]:
+            f = open("{}latex/images/{}".format(PATH, image["name"]),"wb")
+            response = requests.get(image["url"])
+            f.write(response.content)
+            f.close()
+            logger.debug("downloaded image: {}".format(image["name"]))
+        logger.info("finished download of images")
+
+    # Creating the PDF
+    if job_detail["generate_pdf"] == True:        
+        logger.info("generate PDF")
+        os.system("cd {}latex/ && pdflatex -halt-on-error -output-directory pdf/ {} | grep '^!.*' -A200 --color=always".format(PATH, job_detail["filename"]))
+        os.system("cd {}latex/ && pdflatex -halt-on-error -output-directory pdf/ {} | grep '^!.*' -A200 --color=always".format(PATH, job_detail["filename"]))
+        
+        try:
+            file_name = job_detail["filename"].replace(".tex", ".aux")
+            file_path = "{}latex/pdf/{}".format(PATH, file_name)
+            if os.path.isfile(file_path) == True:
+                os.remove(file_path)
+
+            file_name = job_detail["filename"].replace(".tex", ".log")
+            file_path = "{}latex/pdf/{}".format(PATH, file_name)
+            if os.path.isfile(file_path) == True:
+                os.remove(file_path)
+            
+            file_name = job_detail["filename"].replace(".tex", ".toc")
+            file_path = "{}latex/pdf/{}".format(PATH, file_name)
+            if os.path.isfile(file_path) == True:
+                os.remove(file_path)
+
+            file_name = job_detail["filename"].replace(".tex", ".out")
+            file_path = "{}latex/pdf/{}".format(PATH, file_name)
+            if os.path.isfile(file_path) == True:
+                os.remove(file_path)    
+
+        except OSError as e:
+            logger.error(e)
+        logger.info("pdf created")
+
+
+    if job_detail["E-Mail"] == True:
+        # Sending E-Mail
+        logger.info("start to send E-Mails")
+        file_name = job_detail["filename"].replace(".tex", ".pdf")
+        send_mail(job_detail, "{}latex/pdf/{}".format(PATH, file_name))
+        logger.info("Successfully sent email")

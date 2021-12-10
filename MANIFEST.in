@@ -1,0 +1,6 @@
+include supersetpdfreport/jobs/.gitkeep
+include supersetpdfreport/jobs/example_job.json
+include supersetpdfreport/latex/.gitkeep
+include supersetpdfreport/latex/pdf/.gitkeep
+include supersetpdfreport/latex/images/.gitkeep
+include supersetpdfreport/logs/.gitkeep
