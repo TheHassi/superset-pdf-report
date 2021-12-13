@@ -3,3 +3,5 @@
 *.log
 *.tex
 *.pdf
+dist
+superset_pdf_report.egg-info
