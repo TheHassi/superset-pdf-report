@@ -1,4 +1,4 @@
-from supersetpdfreport.nextcloud import transfer_file_to_nextcloud
+from .nextcloud import transfer_file_to_nextcloud
 from .config import PATH
 from .chart import get_chart_screenshots
 from .send_mail import send_mail
@@ -16,11 +16,11 @@ def process_job(access_token, job_detail):
     asyncio.run(get_chart_screenshots(access_token, job_detail["type"], array_chart_id))
     logger.info("finished compute, cache, download of charts")
 
-    #download images via url
-    if job_detail["download_images"] == True:
+    # download images via url
+    if job_detail["download_images"]:
         logger.info("start download of images")
         for image in job_detail["download_images_url"]:
-            f = open("{}latex/images/{}".format(PATH, image["name"]),"wb")
+            f = open("{}latex/images/{}".format(PATH, image["name"]), "wb")
             response = requests.get(image["url"])
             f.write(response.content)
             f.close()
@@ -28,40 +28,48 @@ def process_job(access_token, job_detail):
         logger.info("finished download of images")
 
     # Creating the PDF
-    if job_detail["generate_pdf"] == True:        
+    if job_detail["generate_pdf"]:
         logger.info("generate PDF")
-        os.system("cd {}latex/ && pdflatex -halt-on-error -output-directory pdf/ {} | grep '^!.*' -A200 --color=always".format(PATH, job_detail["filename"]))
-        os.system("cd {}latex/ && pdflatex -halt-on-error -output-directory pdf/ {} | grep '^!.*' -A200 --color=always".format(PATH, job_detail["filename"]))
-        
+        os.system(
+            "cd {}latex/ && pdflatex -halt-on-error -output-directory pdf/ {} | grep '^!.*' -A200 --color=always".format(
+                PATH, job_detail["filename"]
+            )
+        )
+        os.system(
+            "cd {}latex/ && pdflatex -halt-on-error -output-directory pdf/ {} | grep '^!.*' -A200 --color=always".format(
+                PATH, job_detail["filename"]
+            )
+        )
+
         try:
             file_name = job_detail["filename"].replace(".tex", ".aux")
             file_path = "{}latex/pdf/{}".format(PATH, file_name)
-            if os.path.isfile(file_path) == True:
+            if os.path.isfile(file_path):
                 os.remove(file_path)
 
             file_name = job_detail["filename"].replace(".tex", ".log")
             file_path = "{}latex/pdf/{}".format(PATH, file_name)
-            if os.path.isfile(file_path) == True:
+            if os.path.isfile(file_path):
                 os.remove(file_path)
-            
+
             file_name = job_detail["filename"].replace(".tex", ".toc")
             file_path = "{}latex/pdf/{}".format(PATH, file_name)
-            if os.path.isfile(file_path) == True:
+            if os.path.isfile(file_path):
                 os.remove(file_path)
 
             file_name = job_detail["filename"].replace(".tex", ".out")
             file_path = "{}latex/pdf/{}".format(PATH, file_name)
-            if os.path.isfile(file_path) == True:
-                os.remove(file_path)    
+            if os.path.isfile(file_path):
+                os.remove(file_path)
 
         except OSError as e:
             logger.error(e)
         logger.info("pdf created")
-    
-    if job_detail["use_nextcloud"] == True:
+
+    if job_detail["use_nextcloud"]:
         transfer_file_to_nextcloud(job_detail)
 
-    if job_detail["E-Mail"] == True:
+    if job_detail["E-Mail"]:
         # Sending E-Mail
         logger.info("start to send E-Mails")
         file_name = job_detail["filename"].replace(".tex", ".pdf")
