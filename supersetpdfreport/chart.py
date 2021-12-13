@@ -6,14 +6,13 @@ import asyncio
 import time
 
 async def compute_chart(client, access_token, chart_id):
-    #body = '{ "force": true, "thumb_size": [0],"window_size": [0]}'
-
+    
     logger.debug("Compute and Cache Chart with ID: " + chart_id)
-    response = await client.get('{}chart/{}/cache_screenshot/'.format(SUPERSET_URL, chart_id), headers={'Authorization': 'Bearer ' + access_token})
+    response = await client.get('{}/api/v1/chart/{}/cache_screenshot/'.format(SUPERSET_URL, chart_id), headers={'Authorization': 'Bearer ' + access_token})
     if response.status_code == 200 or response.status_code == 202:
         data = response.json()
         cache_key = data["cache_key"]
-        image_url = "{}chart/{}/screenshot/{}/".format(SUPERSET_URL, chart_id, cache_key)
+        image_url = "{}/api/v1/chart/{}/screenshot/{}/".format(SUPERSET_URL, chart_id, cache_key)
         return image_url
     else:
         logger.error("{}: {}".format(response.status_code, response.text))

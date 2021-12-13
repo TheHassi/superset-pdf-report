@@ -21,7 +21,7 @@ def get_access_token() -> str:
     while(True):
         try:
             response = requests.post(
-                '{}security/login'.format(SUPERSET_URL), json=json.loads(RequestBody))
+                '{}/api/v1/security/login'.format(SUPERSET_URL), json=json.loads(RequestBody))
             if response.status_code == 200 or response.status_code == 202:
                 token = response.json()
                 access_token = token["access_token"]
