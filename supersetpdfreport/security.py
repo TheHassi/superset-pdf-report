@@ -10,8 +10,8 @@ import time
 # Get a new access token
 # ----------------------------------------------------------
 def get_access_token() -> str:
-    username=SUPERSET_API_USER
-    password=SUPERSET_API_PASSWORD
+    username=str(SUPERSET_API_USER)
+    password=str(SUPERSET_API_PASSWORD)
 
     retry = 0
 
