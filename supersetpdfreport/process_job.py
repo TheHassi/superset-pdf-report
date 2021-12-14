@@ -3,9 +3,11 @@ from .config import PATH
 from .chart import get_chart_screenshots
 from .send_mail import send_mail
 from .logging import logger
+import sys
 import asyncio
 import os
 import requests
+import subprocess
 
 
 def process_job(access_token, job_detail):
@@ -30,16 +32,24 @@ def process_job(access_token, job_detail):
     # Creating the PDF
     if job_detail["generate_pdf"]:
         logger.info("generate PDF")
-        os.system(
-            "cd {}latex/ && pdflatex -halt-on-error -output-directory pdf/ {} | grep '^!.*' -A200 --color=always".format(
+        
+        sp = subprocess.run("cd {}latex/ && pdflatex -halt-on-error -output-directory pdf/ {} | grep '^!.*' -A200 --color=always".format(
                 PATH, job_detail["filename"]
-            )
-        )
-        os.system(
-            "cd {}latex/ && pdflatex -halt-on-error -output-directory pdf/ {} | grep '^!.*' -A200 --color=always".format(
+            ), stdout=subprocess.PIPE, stderr= subprocess.PIPE, shell=True)
+
+        if sp.stdout.decode("utf-8") == "":
+            sp = subprocess.run("cd {}latex/ && pdflatex -halt-on-error -output-directory pdf/ {} | grep '^!.*' -A200 --color=always".format(
                 PATH, job_detail["filename"]
-            )
-        )
+            ), stdout=subprocess.PIPE, stderr= subprocess.PIPE, shell=True)
+
+            if sp.stdout.decode("utf-8") == "":
+                logger.info("pdf created")
+            else:
+                logger.error(sp.stdout.decode("utf-8"))
+                sys.exit(1)           
+        else:
+            logger.error(sp.stdout.decode("utf-8"))
+            sys.exit(1)        
 
         try:
             file_name = job_detail["filename"].replace(".tex", ".aux")
@@ -64,7 +74,6 @@ def process_job(access_token, job_detail):
 
         except OSError as e:
             logger.error(e)
-        logger.info("pdf created")
 
     if job_detail["use_nextcloud"]:
         transfer_file_to_nextcloud(job_detail)
