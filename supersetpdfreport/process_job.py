@@ -32,24 +32,36 @@ def process_job(access_token, job_detail):
     # Creating the PDF
     if job_detail["generate_pdf"]:
         logger.info("generate PDF")
-        
-        sp = subprocess.run("cd {}latex/ && pdflatex -halt-on-error -output-directory pdf/ {} | grep '^!.*' -A200 --color=always".format(
+
+        sp = subprocess.run(
+            "cd {}latex/ && pdflatex -halt-on-error -output-directory pdf/ {} | grep '^!.*' -A200 --color=always".format(
                 PATH, job_detail["filename"]
-            ), stdout=subprocess.PIPE, stderr= subprocess.PIPE, shell=True)
+            ),
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            shell=True,
+        )
+        if not sp.stderr.decode("utf-8") == "":
+            logger.error(sp.stderr.decode("utf-8"))
 
         if sp.stdout.decode("utf-8") == "":
-            sp = subprocess.run("cd {}latex/ && pdflatex -halt-on-error -output-directory pdf/ {} | grep '^!.*' -A200 --color=always".format(
-                PATH, job_detail["filename"]
-            ), stdout=subprocess.PIPE, stderr= subprocess.PIPE, shell=True)
+            sp = subprocess.run(
+                "cd {}latex/ && pdflatex -halt-on-error -output-directory pdf/ {} | grep '^!.*' -A200 --color=always".format(
+                    PATH, job_detail["filename"]
+                ),
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                shell=True,
+            )
 
             if sp.stdout.decode("utf-8") == "":
                 logger.info("pdf created")
             else:
                 logger.error(sp.stdout.decode("utf-8"))
-                sys.exit(1)           
+                sys.exit(1)
         else:
             logger.error(sp.stdout.decode("utf-8"))
-            sys.exit(1)        
+            sys.exit(1)
 
         try:
             file_name = job_detail["filename"].replace(".tex", ".aux")
