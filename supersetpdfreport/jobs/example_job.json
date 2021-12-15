@@ -18,7 +18,7 @@
     "use_nextcloud":false,
     "E-Mail": false,
     "mail_recipient": [
-        "andreas.hasselberg@example.org"
+        "first_name.last_name@example.org"
     ],
     "mail_subject": "E-Mail from superset-pdf-report",
     "mail_text": "Dear Ladies and Gentlemen\nThis is a generated E-Mail from superset-pdf-report\n"
