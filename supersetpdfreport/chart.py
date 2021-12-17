@@ -9,8 +9,9 @@ import time
 async def compute_chart(client, access_token, chart_id):
 
     logger.debug("Compute and Cache Chart with ID: " + chart_id)
+    Chart_URL="{}/api/v1/chart/{}/cache_screenshot/".format(SUPERSET_URL, chart_id)
     response = await client.get(
-        "{}/api/v1/chart/{}/cache_screenshot/".format(SUPERSET_URL, chart_id),
+        Chart_URL,
         headers={"Authorization": "Bearer " + access_token},
     )
     if response.status_code == 200 or response.status_code == 202:
@@ -21,7 +22,7 @@ async def compute_chart(client, access_token, chart_id):
         )
         return image_url
     else:
-        logger.error("{}: {}".format(response.status_code, response.text))
+        logger.error("{}: {}\nURL: {}".format(response.status_code, response.text, Chart_URL))
         sys.exit(1)
 
 

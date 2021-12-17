@@ -19,8 +19,9 @@ def get_access_token() -> str:
 
     while True:
         try:
+            login_URL="{}/api/v1/security/login".format(SUPERSET_URL)
             response = requests.post(
-                "{}/api/v1/security/login".format(SUPERSET_URL),
+                login_URL,
                 json=Request_Body,
             )
             if response.status_code == 200 or response.status_code == 202:
@@ -43,4 +44,5 @@ def get_access_token() -> str:
             return access_token
         except Exception as e:
             logger.error(e)
+            logger.error(login_URL)
             sys.exit(1)
