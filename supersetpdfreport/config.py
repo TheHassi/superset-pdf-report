@@ -8,10 +8,16 @@ PATH = str(Path(__file__).parent.absolute()) + "/"
 
 # Folder for the log files
 LOG_FOLDER = "{}/logs/".format(PATH)
-LOG_LEVEL = logging.INFO
+LOG_LEVEL = logging.DEBUG
+
+#Folder for the jobs
+PDF_REPORT_JOB_FOLDER = os.environ.get("PDF_REPORT_JOB_FOLDER")
 
 # Configuration for Superset-API
-SUPERSET_URL = os.environ.get("SUPERSET_URL")
+HOST_PROTOCOL = os.environ.get("WEBSERVER_PROTOCOL")
+HOST_NAME = os.environ.get("WEBSERVER_ADDRESS")
+SUPERSET_PORT = os.environ.get("WEBSERVER_PORT")
+SUPERSET_URL = "{}://{}:{}".format(HOST_PROTOCOL, HOST_NAME, SUPERSET_PORT)
 SUPERSET_API_USER = os.environ.get("SUPERSET_API_USER")
 SUPERSET_API_PASSWORD = os.environ.get("SUPERSET_API_PASSWORD")
 
