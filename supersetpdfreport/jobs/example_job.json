@@ -2,25 +2,23 @@
     "active": true,
     "type": "latex",
     "array_chart_id": [
-        "100",
-        "101"
+        "91"
     ],
-    "download_images": false,
+    "download_images": true,
     "download_images_url":[
-        {
-            "name": "example.png",
-            "url":"https://example.org"
-        }
-     
+		{
+			"name": "Logo_apache_superset.png",
+			"url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Superset_logo.svg/1280px-Superset_logo.svg.png"
+		}
     ],    
-    "generate_pdf": false,
-    "filename": "<your_texfile>.tex",
-    "use_nextcloud":false,
+    "generate_pdf": true,
+    "filename": "example_job.tex",
+	"use_nextcloud":false,
     "E-Mail": false,
     "mail_recipient": [
-        "first_name.last_name@example.org"
+        "email@example.org"
     ],
-    "mail_subject": "E-Mail from superset-pdf-report",
-    "mail_text": "Dear Ladies and Gentlemen\nThis is a generated E-Mail from superset-pdf-report\n"
+    "mail_subject": "E-Mail from superset_pdf_report for test purpose",
+    "mail_text": "Werte Damen und werte Herren,\nDies ist eine automatisch erzeugte Email von superset_pdf_report\n"
                 
 }

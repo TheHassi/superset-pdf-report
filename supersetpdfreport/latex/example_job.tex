@@ -1,0 +1,23 @@
+\documentclass[12pt,paper=a4,ngerman]{scrartcl}
+
+\usepackage{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{caption}
+
+\captionsetup[figure]{labelformat=empty}
+\pagestyle{empty}
+
+\setkomafont{section}{\fontsize{20pt}{12pt}\selectfont\bfseries}
+
+\begin{document}
+\section*{Example of a LaTeX document}
+This is a document for testing purpose. If you are useing the example database from superset, you can use this file.
+\subsection*{Image via API}
+\includegraphics[width=16cm, height=7cm]{images/chart_91}
+
+\subsection*{Image via URL}
+\includegraphics[width=16cm, height=6cm]{images/Logo_apache_superset}
+
+\end{document}
