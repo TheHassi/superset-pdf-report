@@ -34,4 +34,4 @@ SMTP_SSL = True
 NEXTCLOUD_URL = os.environ.get("NEXTCLOUD_URL")
 NEXTCLOUD_USER = os.environ.get("NEXTCLOUD_USER")
 NEXTCLOUD_PASSWORD = os.environ.get("NEXTCLOUD_PASSWORD")
-NEXTCLOUD_FOLDER = "superset_pdf_report"
+NEXTCLOUD_FOLDER = os.environ.get("NEXTCLOUD_FOLDER")
