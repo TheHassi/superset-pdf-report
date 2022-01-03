@@ -7,8 +7,8 @@
     "download_images": true,
     "download_images_url":[
 		{
-			"name": "Logo_apache_superset.png",
-			"url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Superset_logo.svg/1280px-Superset_logo.svg.png"
+			"name": "Katze.jpg",
+			"url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Hauskatze_langhaar.jpg/1280px-Hauskatze_langhaar.jpg"
 		}
     ],    
     "generate_pdf": true,
