@@ -8,7 +8,7 @@
     "download_images_url":[
 		{
 			"name": "Katze.jpg",
-			"url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Hauskatze_langhaar.jpg/1280px-Hauskatze_langhaar.jpg"
+			"url": "https://cdn.pixabay.com/photo/2021/12/01/18/17/cat-6838844_960_720.jpg"
 		}
     ],    
     "generate_pdf": true,
