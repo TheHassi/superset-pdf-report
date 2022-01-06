@@ -19,7 +19,7 @@ def get_access_token() -> str:
 
     while True:
         try:
-            login_URL="{}/api/v1/security/login".format(SUPERSET_URL)
+            login_URL = "{}/api/v1/security/login".format(SUPERSET_URL)
             response = requests.post(
                 login_URL,
                 json=Request_Body,

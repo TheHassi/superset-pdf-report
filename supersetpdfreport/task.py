@@ -10,13 +10,13 @@ import glob
 def reports_pdf_scheduler() -> None:
 
     logger.info("superset_pdf_report started")
-    joblist = glob.glob('{}*.json'.format(PDF_REPORT_JOB_FOLDER))
+    joblist = glob.glob("{}*.json".format(PDF_REPORT_JOB_FOLDER))
     logger.info(joblist)
 
     for job_name in joblist:
         job = job_name.split("/")[-1]
         logger.info("Check Job: {}".format(job))
         pdf_report_task = PDF_report()
-        pdf_report_task.execute(job)    
-    
+        pdf_report_task.execute(job)
+
     logger.info("superset_pdf_report finished")

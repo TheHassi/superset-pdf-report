@@ -14,12 +14,12 @@ class PDF_report:
 
     def execute(self, job):
 
-        # Copy <your_job>.json         
+        # Copy <your_job>.json
         if not PDF_REPORT_JOB_FOLDER == None:
-            src="{}{}".format(PDF_REPORT_JOB_FOLDER, job)
-            des="{}jobs/{}".format(PATH, job)
+            src = "{}{}".format(PDF_REPORT_JOB_FOLDER, job)
+            des = "{}jobs/{}".format(PATH, job)
             shutil.copy(src, des)
-        
+
         # Open the json file
         file = open("{}jobs/{}".format(PATH, job), "r")
         job_detail = json.load(file)
@@ -34,13 +34,11 @@ class PDF_report:
         if not croniter.match(job_detail["schedule"], datetime.now()):
             return 0
 
-        #Copy <your_job>.tex
+        # Copy <your_job>.tex
         if not PDF_REPORT_JOB_FOLDER == None:
-            src="{}{}".format(PDF_REPORT_JOB_FOLDER, job_detail["filename"])
-            des="{}latex/{}".format(PATH, job_detail["filename"])
+            src = "{}{}".format(PDF_REPORT_JOB_FOLDER, job_detail["filename"])
+            des = "{}latex/{}".format(PATH, job_detail["filename"])
             shutil.copy(src, des)
-
-        
 
         # Get access-token via API-Login
         logger.info("Get access token")

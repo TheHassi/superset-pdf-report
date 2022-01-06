@@ -1,9 +1,4 @@
-from .config import (
-    PATH,
-    NEXTCLOUD_URL,
-    NEXTCLOUD_USER,
-    NEXTCLOUD_PASSWORD
-)
+from .config import PATH, NEXTCLOUD_URL, NEXTCLOUD_USER, NEXTCLOUD_PASSWORD
 from .logging import logger
 from webdav3.client import Client
 from datetime import datetime
@@ -29,7 +24,9 @@ def transfer_file_to_nextcloud(job_detail):
     # Check for folder on nextcloud
     if not client.check(job_detail["nextcloud_folder"]):
         client.mkdir(job_detail["nextcloud_folder"])
-        logger.debug("Create Folder {} on nextcloud done".format(job_detail["nextcloud_folder"]))
+        logger.debug(
+            "Create Folder {} on nextcloud done".format(job_detail["nextcloud_folder"])
+        )
 
     # Filetransfer
     file_name = job_detail["filename"].replace(".tex", ".pdf")
