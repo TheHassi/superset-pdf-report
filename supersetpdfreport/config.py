@@ -12,7 +12,7 @@ def read_secret_file(var_name):
 PATH = str(Path(__file__).parent.absolute()) + "/"
 
 # Folder for the log files
-LOG_FOLDER = "{}/logs/".format(PATH)
+LOG_FOLDER = os.environ.get("LOG_FOLDER")
 LOG_LEVEL = logging.DEBUG
 
 #Folder for the jobs
