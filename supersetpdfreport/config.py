@@ -13,7 +13,7 @@ PATH = str(Path(__file__).parent.absolute()) + "/"
 
 # Folder for the log files
 LOG_FOLDER = os.environ.get("LOG_FOLDER")
-LOG_LEVEL = logging.DEBUG
+LOG_LEVEL = logging.INFO
 
 #Folder for the jobs
 PDF_REPORT_JOB_FOLDER = os.environ.get("PDF_REPORT_JOB_FOLDER")

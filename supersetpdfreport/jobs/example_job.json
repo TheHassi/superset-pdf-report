@@ -1,5 +1,6 @@
 {
     "active": true,
+    "schedule": "*/2 * * * *",
     "type": "latex",
     "array_chart_id": [
         "91"
