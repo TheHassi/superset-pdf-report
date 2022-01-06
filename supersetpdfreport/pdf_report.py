@@ -16,7 +16,7 @@ class PDF_report:
 
         # Copy <your_job>.json         
         if not PDF_REPORT_JOB_FOLDER == None:
-            src="{}/{}".format(PDF_REPORT_JOB_FOLDER, job)
+            src="{}{}".format(PDF_REPORT_JOB_FOLDER, job)
             des="{}jobs/{}".format(PATH, job)
             shutil.copy(src, des)
         
@@ -36,7 +36,7 @@ class PDF_report:
 
         #Copy <your_job>.tex
         if not PDF_REPORT_JOB_FOLDER == None:
-            src="{}/{}".format(PDF_REPORT_JOB_FOLDER, job_detail["filename"])
+            src="{}{}".format(PDF_REPORT_JOB_FOLDER, job_detail["filename"])
             des="{}latex/{}".format(PATH, job_detail["filename"])
             shutil.copy(src, des)
 

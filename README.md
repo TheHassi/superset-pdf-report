@@ -38,8 +38,8 @@ CELERY_IMPORTS = 'supersetpdfreport.task'
 Add task in CELERYBEAT_SCHEDULE
 
 ```bash
-'reports-pdf.scheduler': {
-    'task':'reports-pdf.scheduler',
+'reports-pdf-scheduler': {
+    'task':'reports-pdf-scheduler',
     'schedule': crontab(minute='*'),
 }
 ```
