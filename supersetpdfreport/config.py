@@ -32,11 +32,10 @@ SMTP_PORT = os.environ.get("SMTP_PORT")
 SMTP_USER = os.environ.get("SMTP_USER")
 SMTP_PASSWORD = os.environ.get("SMTP_PASSWORD", read_secret_file("SMTP_PASSWORD_FILE"))
 SMTP_MAIL_FROM = os.environ.get("SMTP_MAIL_FROM")
-SMTP_STARTTLS = False
-SMTP_SSL = True
+SMTP_STARTTLS = os.environ.get("SMTP_STARTTLS")
+SMTP_SSL = os.environ.get("SMTP_SSL")
 
 # Configuration for nextcloud webdav
 NEXTCLOUD_URL = os.environ.get("NEXTCLOUD_URL")
 NEXTCLOUD_USER = os.environ.get("NEXTCLOUD_USER", read_secret_file("NEXTCLOUD_USER_FILE"))
 NEXTCLOUD_PASSWORD = os.environ.get("NEXTCLOUD_PASSWORD", read_secret_file("NEXTCLOUD_PASSWORD_FILE"))
-NEXTCLOUD_FOLDER = os.environ.get("NEXTCLOUD_FOLDER")

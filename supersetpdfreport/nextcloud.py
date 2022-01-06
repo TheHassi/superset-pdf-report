@@ -2,8 +2,7 @@ from .config import (
     PATH,
     NEXTCLOUD_URL,
     NEXTCLOUD_USER,
-    NEXTCLOUD_PASSWORD,
-    NEXTCLOUD_FOLDER,
+    NEXTCLOUD_PASSWORD
 )
 from .logging import logger
 from webdav3.client import Client
@@ -28,9 +27,9 @@ def transfer_file_to_nextcloud(job_detail):
         sys.exit(1)
 
     # Check for folder on nextcloud
-    if not client.check(NEXTCLOUD_FOLDER):
-        client.mkdir(NEXTCLOUD_FOLDER)
-        logger.debug("Create Folder {} on nextcloud done".format(NEXTCLOUD_FOLDER))
+    if not client.check(job_detail["nextcloud_folder"]):
+        client.mkdir(job_detail["nextcloud_folder"])
+        logger.debug("Create Folder {} on nextcloud done".format(job_detail["nextcloud_folder"]))
 
     # Filetransfer
     file_name = job_detail["filename"].replace(".tex", ".pdf")
@@ -39,7 +38,7 @@ def transfer_file_to_nextcloud(job_detail):
     )
     try:
         client.upload_sync(
-            remote_path="{}/{}".format(NEXTCLOUD_FOLDER, file_name_date),
+            remote_path="{}/{}".format(job_detail["nextcloud_folder"], file_name_date),
             local_path="{}/latex/pdf/{}".format(PATH, file_name),
         )
     except Exception as e:
