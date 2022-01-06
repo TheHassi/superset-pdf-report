@@ -9,8 +9,8 @@ logger = get_task_logger(__name__)
 logger.setLevel(logging.INFO)
 
 
-@celery_app.task(name="pdf-report")
-def pdf_report(job_name: str, *args: Any, **kwargs: Any) -> None:
+@celery_app.task(name="reports-pdf.scheduler")
+def pdf_report() -> None:
 
     logger.info("superset_pdf_report started")
     joblist = glob.glob('*.json')
