@@ -40,6 +40,7 @@ class PDF_report:
             des = "{}latex/{}".format(PATH, job_detail["filename"])
             shutil.copy(src, des)
 
+        logger.info("Start Job: {}".format(job))
         # Get access-token via API-Login
         logger.info("Get access token")
         access_token = get_access_token()
@@ -48,4 +49,4 @@ class PDF_report:
         # process the selected job
         logger.info("Proccessing job: {}".format(job))
         process_job(access_token, job_detail)
-        logger.info("finished job: {}".format(job))
+        logger.info("Finished job: {}".format(job))
