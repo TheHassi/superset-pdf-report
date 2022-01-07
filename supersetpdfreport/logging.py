@@ -10,9 +10,8 @@ logger.setLevel(LOG_LEVEL)
 # Create handlers
 c_handler = logging.StreamHandler()
 f_handler = logging.FileHandler(
-    "{}/superset_pdf_report_{}.log".format(
-        LOG_FOLDER, datetime.today().strftime("%d_%m_%Y")
-    )
+    "{}/superset_pdf_report.log".format(
+        LOG_FOLDER)
 )
 c_handler.setLevel(LOG_LEVEL)
 f_handler.setLevel(LOG_LEVEL)
