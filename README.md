@@ -32,16 +32,15 @@ Insert in superset_config.py
 Celery config:
 
 ```bash
-CELERY_IMPORTS = 'supersetpdfreport.task'
-```
-
-Add task in CELERYBEAT_SCHEDULE
-
-```bash
-'reports-pdf-scheduler': {
-    'task':'reports-pdf-scheduler',
-    'schedule': crontab(minute='*'),
-}
+CELERY_IMPORTS += ("supersetpdfreport.task",)
+CELERYBEAT_SCHEDULE.update(
+    {
+        "reports.pdf-scheduler": {
+            "task": "reports.pdf-scheduler",
+            "schedule": crontab(minute="*"),
+        }
+    }
+)
 ```
 
 You have to restart your Apache Superset application for this changes.
